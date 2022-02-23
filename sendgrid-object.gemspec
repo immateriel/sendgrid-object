@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'sendgrid-ruby'
+  spec.add_dependency 'sendgrid-ruby', "~> 6.6.1"
 end

@@ -5,4 +5,4 @@ gemspec
 
 gem "rake", "~> 12.0"
 gem "rspec", "~> 3.0"
-gem 'sendgrid-ruby',
+gem 'sendgrid-ruby', "~> 6.6.1"
