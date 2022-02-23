@@ -1,5 +1,3 @@
 module Sendgrid
-  module Object
-    VERSION = "0.1.2"
-  end
+  VERSION = "0.1.3"
 end

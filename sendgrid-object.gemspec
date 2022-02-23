@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "sendgrid-object"
-  spec.version       = Sendgrid::Object::VERSION
+  spec.version       = Sendgrid::VERSION
   spec.authors       = ["Elodie Ailleaume"]
   spec.email         = ["elodie@immateriel.fr"]
 
