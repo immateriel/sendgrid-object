@@ -1,5 +1,3 @@
-require_relative 'lib/sendgrid/object/'
-
 Gem::Specification.new do |spec|
   spec.name          = "sendgrid-object"
   spec.version       = Sendgrid::Object::VERSION
