@@ -1,4 +1,4 @@
-class List
+class Sendgrid::List
   attr_reader :list
 
   def initialize

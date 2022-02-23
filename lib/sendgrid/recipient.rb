@@ -1,4 +1,4 @@
-class Recipient
+class Sendgrid::Recipient
   attr_reader :user
 
   def initialize
