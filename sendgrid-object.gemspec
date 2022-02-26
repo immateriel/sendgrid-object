@@ -24,6 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'sendgrid-ruby', "~> 6.6.1"
 
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'rspec', "~> 3.11"
+  spec.add_development_dependency 'webmock', "~> 3.14.0"
 end
