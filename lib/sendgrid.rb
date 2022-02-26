@@ -1,3 +1,4 @@
-module Sendgrid
+require 'sendgrid-ruby'
 
-end
+require_relative 'sendgrid/recipient'
+require_relative 'sendgrid/list'
