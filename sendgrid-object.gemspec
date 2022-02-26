@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
   spec.description   = %q{OOP use of the sendgrid API}
   spec.homepage      = "http://www.immateriel.fr"
   spec.license       = "MIT"
+  spec.files         = `git ls-files -z`.split("\x0")
+  spec.test_files    = spec.files.grep(/^(test|spec|features)/)
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
