@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "sendgrid"
+require "sendgrid-object"
 require 'webmock/rspec'
 
 ENV['SENDGRID_API_KEY']="ThisIsAFakeKey"

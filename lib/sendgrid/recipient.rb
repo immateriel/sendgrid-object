@@ -1,5 +1,4 @@
 class Sendgrid::Recipient
-  include Sendgrid
   attr_reader :id, :errors
   attr_accessor :email, :first_name, :last_name
 
