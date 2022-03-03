@@ -33,9 +33,27 @@ RSpec.describe Sendgrid::Recipient do
       expect(sendgrid_recipient.last_name).to be_nil
     end
 
-  #  TODO Add the not found case
+    it "returns an empty result for a not found user" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      ret = sendgrid_recipient.find_by("email", "jane@doe.com")
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_nil
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
 
-  #  TODO Add a badly formatted email case
+    it "returns an empty result for a not found user with badly formatted email" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      ret = sendgrid_recipient.find_by("email", "jane.doe.com")
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_nil
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
   end
 
   describe "create" do

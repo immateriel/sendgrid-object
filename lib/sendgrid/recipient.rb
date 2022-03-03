@@ -17,6 +17,7 @@ class Sendgrid::Recipient
     data = { conditions: [{ and_or: "", field: field, value: value, operator: "eq" }] }
     response = @api.client.contactdb.recipients.search.post(request_body: data)
     if response.status_code == "200"
+      @errors = nil
       user = JSON.parse(response.body)["recipients"]&.first
       if user
         @id = user["id"]

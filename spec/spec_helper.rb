@@ -79,6 +79,11 @@ RSpec.configure do |config|
         body: "{\"conditions\":[{\"and_or\":\"\",\"field\":\"email\",\"value\":\"jane@doe.com\",\"operator\":\"eq\"}]}",
         headers: headers).
       to_return(status: 200, body: recipient_not_found_response.to_json, headers: {})
+    stub_request(:post, "https://api.sendgrid.com/v3/contactdb/recipients/search").
+      with(
+        body: "{\"conditions\":[{\"and_or\":\"\",\"field\":\"email\",\"value\":\"jane.doe.com\",\"operator\":\"eq\"}]}",
+        headers: headers).
+      to_return(status: 200, body: recipient_not_found_response.to_json, headers: {})
     stub_request(:post, "https://api.sendgrid.com/v3/contactdb/recipients").
       with(
         body: "[{\"email\":\"jane@doe.com\"}]",
