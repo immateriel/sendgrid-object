@@ -34,18 +34,65 @@ Or install it yourself as:
 
 ## Quick start
 
-TODO write some examples
+### Find a recipient
 
-## Development
+```
+recipient = Sendgrid::Recipient.new()
+recipient.find_by("email", "john@doe.com")
+=> {"id"=>"ID", "email"=>"john@doe.com", "created_at"=>TIMESTAMP, "updated_at"=>TIMESTAMP, "last_emailed"=>TIMESTAMP, "last_clicked"=>TIMESTAMP, "last_opened"=>TIMESTAMP, "first_name"=>"John", "last_name"=>"Doe"} 
+unless recipient.errors
+    puts recipient.id
+    puts recipient.email
+    puts recipient.first_name
+    puts recipient.last_name
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Create a recipient
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+recipient = Sendgrid::Recipient.new()
+recipient.create({ email: "jane@doe.com" })
+=> "ID"
+unless recipient.errors
+    puts recipient.id
+    puts recipient.email
+    puts recipient.first_name
+    puts recipient.last_name
+end
+```
+
+### Add a recipient to an existing list
+
+```
+recipient = Sendgrid::Recipient.new()
+recipient.find_by("email", "john@doe.com")
+list = Sendgrid::List.new()
+list.add_recipient(recipient.id, ID_OF_THE_LIST)
+=> nil
+unless list.errors
+    puts "User successfully added."
+end
+```
+
+OR
+
+```
+recipient = Sendgrid::Recipient.new()
+recipient.find_by("email", "john@doe.com")
+list = Sendgrid::List.new()
+sendgrid_list.find(ID_OF_THE_LIST)
+=> {"id"=>ID_OF_THE_LIST, "name"=>"NAME", "recipient_count"=>NB} 
+list.add_recipient(recipient.id)
+=> nil
+unless list.errors
+    puts "User successfully added."
+end
+```
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/immateriel/sendgrid-object. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/sendgrid-object/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## License
 
