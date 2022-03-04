@@ -85,9 +85,27 @@ sendgrid_list.find(ID_OF_THE_LIST)
 => {"id"=>ID_OF_THE_LIST, "name"=>"NAME", "recipient_count"=>NB} 
 list.add_recipient(recipient.id)
 => nil
-unless list.errors
-    puts "User successfully added."
+puts "User successfully added." unless list.errors
+```
+
+### Destroy a recipient
+
+```
+recipient = Sendgrid::Recipient.new()
+recipient.find_by("email", "john@doe.com")
+=> {"id"=>"ID", "email"=>"john@doe.com", "created_at"=>TIMESTAMP, "updated_at"=>TIMESTAMP, "last_emailed"=>TIMESTAMP, "last_clicked"=>TIMESTAMP, "last_opened"=>TIMESTAMP, "first_name"=>"John", "last_name"=>"Doe"} 
+unless recipient.errors
+    recipient.destroy
+    puts "User successfully destroyed." unless recipient.errors
 end
+```
+
+OR
+
+```
+recipient = Sendgrid::Recipient.new()
+recipient.destroy("ID")
+puts "User successfully destroyed." unless recipient.errors
 ```
 
 ## Contributing
