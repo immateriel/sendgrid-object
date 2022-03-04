@@ -94,4 +94,56 @@ RSpec.describe Sendgrid::Recipient do
       expect(sendgrid_recipient.errors[:body]).to eq([{ "message" => "Type of provided email is invalid, email must be a non empty string" }])
     end
   end
+
+  describe "destroy" do
+    it "deletes the user" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      sendgrid_recipient.find_by("email", "john@doe.com")
+      ret = sendgrid_recipient.destroy
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_nil
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
+
+    it "does not returns an error with a non-existent user" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      ret = sendgrid_recipient.destroy("Anything")
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_nil
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
+
+    it "returns an error with an invalid id" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      ret = sendgrid_recipient.destroy(400)
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_a_kind_of(Hash)
+      expect(sendgrid_recipient.errors[:status]).to eq("400")
+      expect(sendgrid_recipient.errors[:body]).to eq([{ "message" => "invalid ID" }])
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
+
+    it "returns an error with a nil id" do
+      sendgrid_recipient = Sendgrid::Recipient.new()
+      # sendgrid_recipient.find_by("email", "jane@doe.com")
+      ret = sendgrid_recipient.destroy
+      expect(ret).to be_nil
+      expect(sendgrid_recipient.errors).to be_a_kind_of(Hash)
+      expect(sendgrid_recipient.errors[:status]).to eq("400")
+      expect(sendgrid_recipient.errors[:body]).to eq([{ "message" => "request body is invalid" }])
+      expect(sendgrid_recipient.id).to be_nil
+      expect(sendgrid_recipient.email).to be_nil
+      expect(sendgrid_recipient.first_name).to be_nil
+      expect(sendgrid_recipient.last_name).to be_nil
+    end
+  end
 end

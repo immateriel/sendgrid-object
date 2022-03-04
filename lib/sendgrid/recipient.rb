@@ -64,6 +64,21 @@ class Sendgrid::Recipient
     @id
   end
 
+  # Destroy an existing user
+  # @param [Integer, nil] id of the recipient
+  # @return [void]
+  def destroy(recipient_id = nil)
+    recipient_id ||= @id
+    response = @api.client.contactdb.recipients._(recipient_id).delete()
+    reset_properties
+    if response.status_code == "204"
+      @errors = nil
+    else
+      @errors = { status: response.status_code, body: JSON.parse(response.body)["errors"] }
+    end
+    nil
+  end
+
   private
 
   def reset_properties

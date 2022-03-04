@@ -54,7 +54,7 @@ RSpec.describe Sendgrid::List do
       ret = sendgrid_list.add_recipient(sendgrid_recipient.id, 12846200)
       expect(ret).to be_nil
       expect(sendgrid_list.errors).to be_nil
-      expect(sendgrid_list.id).to be_a_kind_of(String)
+      expect(sendgrid_list.id).to be_nil
     end
 
     it "returns an error with a non-existent list id" do

@@ -20,7 +20,6 @@ RSpec.configure do |config|
       'Accept'=>'application/json',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization'=>"Bearer #{ENV['SENDGRID_API_KEY']}",
-      'Content-Type'=>'',
       'User-Agent'=>'sendgrid/6.6.1;ruby'
     }
 
@@ -62,6 +61,9 @@ RSpec.configure do |config|
     not_existing_field_response = {
       errors: [ message: "Field does not exist" ]
     }
+    request_body_invalid_response = {
+      errors: [ message: "request body is invalid" ]
+    }
     created_recipient_response = { new_count: 1, updated_count: 0, error_count: 0, error_indices: [],
                                    unmodified_indices: [], persisted_recipients: ["Anything"], errors: []}
     stub_request(:post, "https://api.sendgrid.com/v3/contactdb/recipients/search").
@@ -98,7 +100,18 @@ RSpec.configure do |config|
       with(
         headers: headers_without_content_type).
       to_return(status: 404, body: list_not_found_response.to_json, headers: {})
-
+    stub_request(:delete, "https://api.sendgrid.com/v3/contactdb/recipients/Anything").
+      with(
+        headers: headers_without_content_type).
+      to_return(status: 204, body: nil.to_json, headers: {})
+    stub_request(:delete, "https://api.sendgrid.com/v3/contactdb/recipients/400").
+      with(
+        headers: headers_without_content_type).
+      to_return(status: 400, body: invalid_id_response.to_json, headers: {})
+    stub_request(:delete, "https://api.sendgrid.com/v3/contactdb/recipients").
+      with(
+        headers: headers_without_content_type).
+      to_return(status: 400, body: request_body_invalid_response.to_json, headers: {})
   end
 
   # Enable flags like --only-failures and --next-failure
