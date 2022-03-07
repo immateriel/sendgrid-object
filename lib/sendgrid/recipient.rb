@@ -3,7 +3,7 @@ class Sendgrid::Recipient
   attr_accessor :email, :first_name, :last_name
 
   def initialize
-    @api = ::SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    @api = ::SendGrid::API.new(api_key: Sendgrid.api_key)
     @errors = nil
     reset_properties
   end
