@@ -6,16 +6,6 @@ This gem provide classes for an easy use of the [sendrig-ruby](https://github.co
 
 Ruby version >= 2.4 (except version [2.6.0](https://github.com/sendgrid/sendgrid-ruby/blob/main/TROUBLESHOOTING.md#ruby-versions))
 
-## Setup Environment Variables
-
-Update the development environment with your SENDGRID_API_KEY, for example:
-
-```
-echo "export SENDGRID_API_KEY='YOUR_API_KEY'" > sendgrid.env
-echo "sendgrid.env" >> .gitignore
-source ./sendgrid.env
-```
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -32,11 +22,23 @@ Or install it yourself as:
 
     $ gem install sendgrid-object
 
+## Configuration
+
+You need to configure the api key with the following code. You can add it in `/config/initializers/sendgrid.rb` for example.
+
+```ruby
+require 'sendgrid-object'
+
+Sendgrid.config do
+  api_key    'YOUR_API_KEY_HERE'
+end
+```
+
 ## Quick start
 
 ### Find a recipient
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.find_by("email", "john@doe.com")
 => {"id"=>"ID", "email"=>"john@doe.com", "created_at"=>TIMESTAMP, "updated_at"=>TIMESTAMP, "last_emailed"=>TIMESTAMP, "last_clicked"=>TIMESTAMP, "last_opened"=>TIMESTAMP, "first_name"=>"John", "last_name"=>"Doe"} 
@@ -50,7 +52,7 @@ end
 
 ### Create a recipient
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.create({ email: "jane@doe.com" })
 => "ID"
@@ -64,7 +66,7 @@ end
 
 ### Add a recipient to an existing list
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.find_by("email", "john@doe.com")
 list = Sendgrid::List.new()
@@ -77,7 +79,7 @@ end
 
 OR
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.find_by("email", "john@doe.com")
 list = Sendgrid::List.new()
@@ -90,7 +92,7 @@ puts "User successfully added." unless list.errors
 
 ### Destroy a recipient
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.find_by("email", "john@doe.com")
 => {"id"=>"ID", "email"=>"john@doe.com", "created_at"=>TIMESTAMP, "updated_at"=>TIMESTAMP, "last_emailed"=>TIMESTAMP, "last_clicked"=>TIMESTAMP, "last_opened"=>TIMESTAMP, "first_name"=>"John", "last_name"=>"Doe"} 
@@ -102,7 +104,7 @@ end
 
 OR
 
-```
+```ruby
 recipient = Sendgrid::Recipient.new()
 recipient.destroy("ID")
 puts "User successfully destroyed." unless recipient.errors
