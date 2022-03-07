@@ -3,7 +3,7 @@ class Sendgrid::List
   attr_accessor :name
 
   def initialize(data = {})
-    @api = ::SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    @api = ::SendGrid::API.new(api_key: Sendgrid.api_key)
     @errors = nil
     reset_properties
     @name ||= data["name"]

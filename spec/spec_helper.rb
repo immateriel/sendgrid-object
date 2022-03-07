@@ -2,7 +2,7 @@ require "bundler/setup"
 require "sendgrid-object"
 require 'webmock/rspec'
 
-ENV['SENDGRID_API_KEY']="ThisIsAFakeKey"
+Sendgrid.api_key = "ThisIsAFakeKey"
 
 RSpec.configure do |config|
 
@@ -12,14 +12,14 @@ RSpec.configure do |config|
     headers = {
       'Accept'=>'application/json',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>"Bearer #{ENV['SENDGRID_API_KEY']}",
+      'Authorization'=>"Bearer #{Sendgrid.api_key}",
       'Content-Type'=>'application/json',
       'User-Agent'=>'sendgrid/6.6.1;ruby'
     }
     headers_without_content_type = {
       'Accept'=>'application/json',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>"Bearer #{ENV['SENDGRID_API_KEY']}",
+      'Authorization'=>"Bearer #{Sendgrid.api_key}",
       'User-Agent'=>'sendgrid/6.6.1;ruby'
     }
 
